@@ -1,0 +1,12 @@
+/db.sqlite3
+/venv
+/.idea
+/.vscode
+/project/__init__.py
+/project/api/__init__.py
+/project/__pycache__
+/project/api/__pycache__
+/project/api/migrations
+/project/api/users/__pycache__
+/project/api/tasks/__pycache__
+/project/api/groups/__pycache__
