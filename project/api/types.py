@@ -3,9 +3,12 @@ import graphql_jwt
 
 from graphene_django.types import DjangoObjectType
 from .models import User, Task, Group, GroupMembers
+from .enums import task_priority_enum
 
 
 class TaskType(DjangoObjectType):
+    priority = task_priority_enum()
+
     class Meta:
         model = Task
         fields = '__all__'
