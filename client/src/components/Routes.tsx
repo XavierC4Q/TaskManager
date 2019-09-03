@@ -6,18 +6,19 @@ import Login from './Login';
 import {IUser} from '../types';
 import Signup from './Signup';
 import Feed from './Feed';
+import Profile from './Profile';
 
 interface IProtectedRoute extends RouteProps {
     authenticated: null | IUser;
-    redirectPath?: string;
+    redirectPath: string;
 }
 
 class ProtectedRoute extends Route<IProtectedRoute> {
     public render() {
-        const {authenticated} = this.props;
+        const {authenticated, redirectPath} = this.props;
 
         if (!authenticated) {
-            return <div>You must be logged in</div>;
+            return <Redirect to={redirectPath} />;
         }
 
         return <Route {...this.props} />;
@@ -49,7 +50,6 @@ const useMainStyles = makeStyles({
     },
 });
 
-
 const Routes = () => {
     const classes = useMainStyles();
     const {currentUser} = React.useContext(AuthContext);
@@ -57,9 +57,15 @@ const Routes = () => {
     return (
         <div className={classes.routeContainer}>
             <Switch>
-                <Route exact path="/" render={() => currentUser ? <Feed /> : <Home />} />
+                <Route exact path="/" render={() => (currentUser ? <Feed /> : <Home />)} />
                 <AuthRoute authenticated={currentUser} path="/auth/login" component={Login} redirectPath="/" />
                 <AuthRoute authenticated={currentUser} path="/auth/signup" component={Signup} redirectPath="/" />
+                <ProtectedRoute
+                    authenticated={currentUser}
+                    path="/user/profile/:userId"
+                    component={Profile}
+                    redirectPath="/"
+                />
             </Switch>
         </div>
     );

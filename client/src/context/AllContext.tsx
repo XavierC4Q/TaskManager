@@ -1,6 +1,5 @@
 import React from 'react';
 import {AuthContext, useAuthState} from './AuthContext';
-import {UserContext, useUserState} from './UserContext';
 import {useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
@@ -38,7 +37,6 @@ const LOGGED_IN_USER_QUERY = gql`
 
 const AllContext: React.FC = ({children}) => {
     const {currentUser, logout, setCurrentUser} = useAuthState();
-    const {userData, setUser} = useUserState();
     const {data, loading} = useQuery(LOGGED_IN_USER_QUERY);
     const TOKEN = localStorage.getItem('TOKEN');
 
@@ -53,7 +51,7 @@ const AllContext: React.FC = ({children}) => {
 
     return (
         <AuthContext.Provider value={{currentUser, logout, setCurrentUser}}>
-            <UserContext.Provider value={{userData, setUser}}>{children}</UserContext.Provider>
+            {children}
         </AuthContext.Provider>
     );
 };

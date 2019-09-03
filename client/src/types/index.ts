@@ -6,7 +6,7 @@ export interface IUser {
     assignedTasks: Omit<ITask, 'assignedTo'>[];
 }
 
-export type TPriority = 'high' | 'medium' | 'low';
+export type TPriority = 'HIGH' | 'MEDIUM' | 'LOW';
 
 export interface ITask {
     id: number;

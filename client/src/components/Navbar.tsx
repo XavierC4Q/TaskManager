@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link as RouterLink} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -22,15 +23,16 @@ const useNavbarStyles = makeStyles((theme: Theme) =>
 const Navbar = () => {
     const {currentUser, logout} = React.useContext(AuthContext);
     const classes = useNavbarStyles();
+    const profileUrl = currentUser ? `/user/profile/${currentUser.id}` : '';
 
     const authLinks = (
         <React.Fragment>
-            <Link href="/auth/login" color="inherit">
+            <Link to="/auth/login" color="inherit" component={RouterLink}>
                 <Typography variant="h6" className={classes.navItem}>
                     Login
                 </Typography>
             </Link>
-            <Link href="/auth/signup" color="inherit">
+            <Link to="/auth/signup" color="inherit" component={RouterLink}>
                 <Typography variant="h6" className={classes.navItem}>
                     Sign Up
                 </Typography>
@@ -40,12 +42,12 @@ const Navbar = () => {
 
     const userLinks = (
         <React.Fragment>
-            <Link href="/user/profile" color="inherit">
+            <Link to={profileUrl} color="inherit" component={RouterLink}>
                 <Typography variant="h6" className={classes.navItem}>
                     Profile
                 </Typography>
             </Link>
-            <Link href="/user/tasks" color="inherit">
+            <Link to="/user/tasks" color="inherit" component={RouterLink}>
                 <Typography variant="h6" className={classes.navItem}>
                     Tasks
                 </Typography>
