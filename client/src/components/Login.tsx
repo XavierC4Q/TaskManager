@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import gql from 'graphql-tag';
 import Input from './Input';
 import {Form, Formik} from 'formik';
-import {formStyles} from '../styles/formStyles';
+import {useFormStyles} from '../styles/formStyles';
 import {IUser} from '../types/index';
 import {RouteComponentProps} from 'react-router-dom';
 import {useMutation} from '@apollo/react-hooks';
@@ -49,7 +49,7 @@ const INIT_FIELDS: ILoginFields = {
 };
 
 const Login: React.FC<IOwnProps> = ({history}) => {
-    const classes = formStyles();
+    const classes = useFormStyles();
     const [loginUser] = useMutation<IGetToken, ILoginFields>(LOGIN_USER);
 
     return (

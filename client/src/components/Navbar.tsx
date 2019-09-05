@@ -12,10 +12,12 @@ const useNavbarStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             height: 64,
+            background: '#313434'
         },
         navItem: {
             flexGrow: 1,
             margin: theme.spacing(4),
+            color: '#f1e905'
         },
     }),
 );
@@ -49,7 +51,7 @@ const Navbar = () => {
             </Link>
             <Link to="/user/tasks" color="inherit" component={RouterLink}>
                 <Typography variant="h6" className={classes.navItem}>
-                    Tasks
+                    New Task
                 </Typography>
             </Link>
         </React.Fragment>
@@ -58,7 +60,9 @@ const Navbar = () => {
         <AppBar color="primary" className={classes.root} position="static">
             <Toolbar>
                 <Typography variant="h5" className={classes.navItem}>
-                    Task Manager
+                    <Link to="/" color="inherit" component={RouterLink}>
+                        Task Manager
+                    </Link>
                 </Typography>
                 {currentUser ? userLinks : authLinks}
             </Toolbar>

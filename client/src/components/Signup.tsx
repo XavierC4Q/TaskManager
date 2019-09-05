@@ -7,7 +7,7 @@ import gql from 'graphql-tag';
 import {Form, Formik} from 'formik';
 import Input from './Input';
 import {IUser} from '../types/index';
-import {formStyles} from '../styles/formStyles';
+import {useFormStyles} from '../styles/formStyles';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -60,7 +60,7 @@ const INIT_FIELDS: ISignupFields = {
 interface IOwnProps extends RouteComponentProps {}
 
 const Signup: React.FC<WithApolloClient<IOwnProps>> = ({client, history, ...props}) => {
-    const classes = formStyles({});
+    const classes = useFormStyles({});
     const [signupUser] = useMutation<ISignupMutation, Omit<ISignupFields, 'confirmPassword'>>(SIGNUP_USER);
 
     return (

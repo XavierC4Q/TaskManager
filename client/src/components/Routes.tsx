@@ -1,12 +1,13 @@
 import React from 'react';
 import {Route, Redirect, RouteProps, Switch} from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext';
-import {makeStyles} from '@material-ui/styles';
+import {makeStyles, createStyles} from '@material-ui/styles';
 import Login from './Login';
 import {IUser} from '../types';
 import Signup from './Signup';
-import Feed from './Feed';
+import DashBoard from './DashBoard';
 import Profile from './Profile';
+import { Theme } from '@material-ui/core';
 
 interface IProtectedRoute extends RouteProps {
     authenticated: null | IUser;
@@ -38,17 +39,18 @@ class AuthRoute extends Route<IProtectedRoute> {
 
 const Home = () => <div>Welcome Home</div>;
 
-const useMainStyles = makeStyles({
+const useMainStyles = makeStyles((theme: Theme) => createStyles({
     routeContainer: {
         height: 1000,
         overflow: 'scroll',
         position: 'absolute',
-        top: 72,
-        bottom: 35,
-        left: 32,
-        right: 32,
+        top: theme.spacing(9),
+        bottom: theme.spacing(4.5),
+        left: theme.spacing(4),
+        right: theme.spacing(4),
+        marginTop: theme.spacing(4)
     },
-});
+}));
 
 const Routes = () => {
     const classes = useMainStyles();
@@ -57,7 +59,7 @@ const Routes = () => {
     return (
         <div className={classes.routeContainer}>
             <Switch>
-                <Route exact path="/" render={() => (currentUser ? <Feed /> : <Home />)} />
+                <Route exact path="/" render={() => (currentUser ? <DashBoard /> : <Home />)} />
                 <AuthRoute authenticated={currentUser} path="/auth/login" component={Login} redirectPath="/" />
                 <AuthRoute authenticated={currentUser} path="/auth/signup" component={Signup} redirectPath="/" />
                 <ProtectedRoute
