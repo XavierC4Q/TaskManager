@@ -12,12 +12,12 @@ const useNavbarStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             height: 64,
-            background: '#313434'
+            background: '#04963e'
         },
         navItem: {
             flexGrow: 1,
             margin: theme.spacing(4),
-            color: '#f1e905'
+            color: '#ffffff'
         },
     }),
 );

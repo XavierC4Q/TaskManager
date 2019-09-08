@@ -43,7 +43,7 @@ interface IGetToken {
 
 interface IOwnProps extends RouteComponentProps {}
 
-const INIT_FIELDS: ILoginFields = {
+const INITIAL_VALUES: ILoginFields = {
     username: '',
     password: '',
 };
@@ -57,7 +57,7 @@ const Login: React.FC<IOwnProps> = ({history}) => {
             <Container className={classes.formContainer}>
                 <Formik
                     validationSchema={validate}
-                    initialValues={{...INIT_FIELDS}}
+                    initialValues={{...INITIAL_VALUES}}
                     enableReinitialize
                     onSubmit={async (vals, actions) => {
                         const {username, password} = vals;

@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import {IUser} from '../types';
 import {RouteComponentProps} from 'react-router';
 import {AuthContext} from '../context/AuthContext';
+import Message from './Message';
 
 interface IProfileQueryData {
     singleUser: IUser | null;
@@ -54,13 +55,12 @@ const Profile: React.FC<IOwnProps> = ({history, match: {params}}) => {
     const {currentUser} = React.useContext(AuthContext);
 
     if (error) {
-        return <div>An Error Occurkript</div>;
+        return <Message header="Uh-oh" message={`An error occured for user ${params.userId}`} messageType={'error'} />;
     }
     if (!loading && !profileData) {
-        return <div>User is not real</div>;
+        return <Message header="Uh-oh" message={`User ${params.userId} does not exist`} messageType={'error'} />;
     }
     if (profileData) {
-        console.log(profileData);
         return <h2>Profile</h2>;
     }
     return <div>Loading</div>;

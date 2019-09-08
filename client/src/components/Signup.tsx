@@ -50,7 +50,7 @@ interface ISignupFields {
     email: string;
 }
 
-const INIT_FIELDS: ISignupFields = {
+const INITIAL_VALUES: ISignupFields = {
     username: '',
     password: '',
     confirmPassword: '',
@@ -68,7 +68,7 @@ const Signup: React.FC<WithApolloClient<IOwnProps>> = ({client, history, ...prop
             <Container className={classes.formContainer}>
                 <Formik
                     validationSchema={validate}
-                    initialValues={{...INIT_FIELDS}}
+                    initialValues={{...INITIAL_VALUES}}
                     enableReinitialize
                     onSubmit={async (vals, actions) => {
                         const {username, password, email} = vals;
@@ -79,7 +79,7 @@ const Signup: React.FC<WithApolloClient<IOwnProps>> = ({client, history, ...prop
                                 email,
                             },
                         });
-                        console.log('DATA', data);
+
                         if (data && data.signup) {
                             const {data: loginData} = await client.mutate<{getToken: {token: string}}>({
                                 variables: {
@@ -94,7 +94,7 @@ const Signup: React.FC<WithApolloClient<IOwnProps>> = ({client, history, ...prop
                                     }
                                 `,
                             });
-                            console.log('LOGIN', loginData);
+
                             if (loginData && loginData.getToken) {
                                 localStorage.setItem('TOKEN', loginData.getToken.token);
                                 history.push('/');
