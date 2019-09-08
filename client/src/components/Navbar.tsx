@@ -4,15 +4,15 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import {AuthContext} from '../context/AuthContext';
 import {makeStyles, createStyles} from '@material-ui/styles';
 import {Theme} from '@material-ui/core';
+import {AuthContext} from '../context/AuthContext';
 
 const useNavbarStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             height: 64,
-            background: '#04963e'
+            background: '#21acd6'
         },
         navItem: {
             flexGrow: 1,

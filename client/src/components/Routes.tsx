@@ -7,7 +7,8 @@ import {IUser} from '../types';
 import Signup from './Signup';
 import DashBoard from './DashBoard';
 import Profile from './Profile';
-import { Theme } from '@material-ui/core';
+import {Theme} from '@material-ui/core';
+import TaskDetail from './TaskDetail';
 
 interface IProtectedRoute extends RouteProps {
     authenticated: null | IUser;
@@ -39,18 +40,20 @@ class AuthRoute extends Route<IProtectedRoute> {
 
 const Home = () => <div>Welcome Home</div>;
 
-const useMainStyles = makeStyles((theme: Theme) => createStyles({
-    routeContainer: {
-        height: 1000,
-        overflow: 'scroll',
-        position: 'absolute',
-        top: theme.spacing(9),
-        bottom: theme.spacing(4.5),
-        left: theme.spacing(4),
-        right: theme.spacing(4),
-        marginTop: theme.spacing(4)
-    },
-}));
+const useMainStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        routeContainer: {
+            height: 1000,
+            overflow: 'scroll',
+            position: 'absolute',
+            top: theme.spacing(9),
+            bottom: theme.spacing(4.5),
+            left: theme.spacing(4),
+            right: theme.spacing(4),
+            marginTop: theme.spacing(4),
+        },
+    }),
+);
 
 const Routes = () => {
     const classes = useMainStyles();
@@ -66,6 +69,12 @@ const Routes = () => {
                     authenticated={currentUser}
                     path="/user/profile/:userId"
                     component={Profile}
+                    redirectPath="/"
+                />
+                <ProtectedRoute
+                    authenticated={currentUser}
+                    path="/task/detail/:taskId"
+                    component={TaskDetail}
                     redirectPath="/"
                 />
             </Switch>

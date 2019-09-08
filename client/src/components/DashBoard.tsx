@@ -14,17 +14,18 @@ import {
     CardActions,
     CardHeader,
 } from '@material-ui/core';
+import {Cancel, CheckCircle} from '@material-ui/icons';
 import {makeStyles, createStyles} from '@material-ui/styles';
 import moment from 'moment';
 
 const useDashBoardStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            height: '100%'
+            height: '100%',
         },
         mainBar: {
             background: '#04963e',
-            marginBottom: theme.spacing(2)
+            marginBottom: theme.spacing(2),
         },
         tab: {
             color: '#ffffff',
@@ -40,15 +41,33 @@ const useDashBoardStyles = makeStyles((theme: Theme) =>
         card: {
             marginTop: theme.spacing(1.5),
             marginBottom: theme.spacing(1.5),
-            width: '49%',
+            width: '100%',
             height: 210,
             '& span.MuiCardHeader-title': {
-                textAlign: 'center'
+                textAlign: 'center',
             },
             '& span.MuiCardHeader-subheader': {
-                float: 'right'
-            }
-        }
+                float: 'right',
+            },
+        },
+        cardContent: {
+            display: 'flex',
+            flexDirection: 'row-reverse',
+            height: 'auto',
+            '& div.card-item': {
+                height: '100%',
+                width: '50%',
+                '& svg': {
+                    margin: 'auto',
+                    height: '3.75em',
+                    width: '50%',
+                },
+            },
+            '& div.complete-status': {
+                display: 'flex',
+                alignContent: 'center',
+            },
+        },
     }),
 );
 
@@ -63,15 +82,26 @@ const DashBoard = () => {
         const createdTaskContent = (
             <div className={classes.cardContainer}>
                 {currentUser.createdTasks.map((t, i) => (
-                    <Card key={i} className={classes.card}>
-                        <CardHeader title={t.title} subheader={`Status: ${t.completed ? 'Finished' : 'In Progress'}`} />
+                    <Link to={`/task/detail/${t.id}`} component={RouterLink}>
+                        <Card key={i} className={classes.card}>
+                            <CardHeader title={t.title} />
 
-                        <CardContent>
-                            <Typography variant="subtitle1">Assigned to: {t.assignedTo.username}</Typography>
-                            <Typography variant="body1">{t.description}</Typography>
-                            {moment(t.createdOn, 'YYYYMMDD').fromNow()}
-                        </CardContent>
-                    </Card>
+                            <CardContent>
+                                <section className={classes.cardContent}>
+                                    <div className="card-item">
+                                        <Typography variant="subtitle1">
+                                            Assigned to: {t.assignedTo.username}
+                                        </Typography>
+                                        <Typography variant="body1">{t.description}</Typography>
+                                        {moment(t.createdOn, 'YYYYMMDD').fromNow()}
+                                    </div>
+                                    <div className="card-item complete-status">
+                                        {t.completed ? <CheckCircle color="primary" /> : <Cancel color="error" />}
+                                    </div>
+                                </section>
+                            </CardContent>
+                        </Card>
+                    </Link>
                 ))}
             </div>
         );
@@ -79,15 +109,24 @@ const DashBoard = () => {
         const assignedTaskContent = (
             <div className={classes.cardContainer}>
                 {currentUser.assignedTasks.map((t, i) => (
-                    <Card key={i} className={classes.card}>
-                        <CardHeader title={t.title} subheader={`Status: ${t.completed ? 'Finished' : 'In Progress'}`} />
+                    <Link to={`/task/detail/${t.id}`} component={RouterLink}>
+                        <Card key={i} className={classes.card}>
+                            <CardHeader title={t.title} />
 
-                        <CardContent>
-                            <Typography variant="subtitle1">Created by: {t.createdBy.username}</Typography>
-                            <Typography variant="body1">{t.description}</Typography>
-                            {moment(t.createdOn, 'YYYYMMDD').fromNow()}
-                        </CardContent>
-                    </Card>
+                            <CardContent>
+                                <section className={classes.cardContent}>
+                                    <div className="card-item">
+                                        <Typography variant="subtitle1">Created by: {t.createdBy.username}</Typography>
+                                        <Typography variant="body1">{t.description}</Typography>
+                                        {moment(t.createdOn, 'YYYYMMDD').fromNow()}
+                                    </div>
+                                    <div className="card-item complete-status">
+                                        {t.completed ? <CheckCircle color="primary" /> : <Cancel color="error" />}
+                                    </div>
+                                </section>
+                            </CardContent>
+                        </Card>
+                    </Link>
                 ))}
             </div>
         );
