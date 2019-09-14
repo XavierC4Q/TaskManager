@@ -24,7 +24,7 @@ const useDashBoardStyles = makeStyles((theme: Theme) =>
             height: '100%',
         },
         mainBar: {
-            background: '#04963e',
+            background: '#21acd6',
             marginBottom: theme.spacing(2),
         },
         tab: {
@@ -37,6 +37,9 @@ const useDashBoardStyles = makeStyles((theme: Theme) =>
             flexDirection: 'row',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
+            '& a': {
+                width: '49%'
+            }
         },
         card: {
             marginTop: theme.spacing(1.5),
@@ -82,8 +85,8 @@ const DashBoard = () => {
         const createdTaskContent = (
             <div className={classes.cardContainer}>
                 {currentUser.createdTasks.map((t, i) => (
-                    <Link to={`/task/detail/${t.id}`} component={RouterLink}>
-                        <Card key={i} className={classes.card}>
+                    <Link key={i} to={`/task/detail/${t.id}`} component={RouterLink}>
+                        <Card className={classes.card}>
                             <CardHeader title={t.title} />
 
                             <CardContent>
@@ -109,8 +112,8 @@ const DashBoard = () => {
         const assignedTaskContent = (
             <div className={classes.cardContainer}>
                 {currentUser.assignedTasks.map((t, i) => (
-                    <Link to={`/task/detail/${t.id}`} component={RouterLink}>
-                        <Card key={i} className={classes.card}>
+                    <Link key={i} to={`/task/detail/${t.id}`} component={RouterLink}>
+                        <Card className={classes.card}>
                             <CardHeader title={t.title} />
 
                             <CardContent>
