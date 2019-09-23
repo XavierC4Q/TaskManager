@@ -24,7 +24,6 @@ const useDashBoardStyles = makeStyles((theme: Theme) =>
             height: '100%',
         },
         mainBar: {
-            background: '#21acd6',
             marginBottom: theme.spacing(2),
         },
         tab: {
@@ -136,7 +135,7 @@ const DashBoard = () => {
 
         return (
             <Container maxWidth={false} className={classes.root}>
-                <AppBar position="static" className={classes.mainBar}>
+                <AppBar color="primary" position="static" className={classes.mainBar}>
                     <Tabs
                         value={tabVal}
                         onChange={handleTabChange}

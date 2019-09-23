@@ -8,6 +8,14 @@ import AllContext from './context/AllContext';
 import Navbar from './components/Navbar';
 
 const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#bd304e'
+        },
+        secondary: {
+            main: '#39323A'
+        }
+    },
     spacing: 8,
 });
 

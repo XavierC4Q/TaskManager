@@ -48,6 +48,7 @@ const useTaskDetailStyles = makeStyles((theme: Theme) =>
         paper: {
             width: '100%',
             height: '100%',
+            border: theme.palette.primary.dark
         },
         title: {
             height: '10%',

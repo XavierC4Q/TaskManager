@@ -9,6 +9,7 @@ import DashBoard from './DashBoard';
 import Profile from './Profile';
 import {Theme} from '@material-ui/core';
 import TaskDetail from './TaskDetail';
+import NewTask from './NewTask';
 
 interface IProtectedRoute extends RouteProps {
     authenticated: null | IUser;
@@ -75,6 +76,12 @@ const Routes = () => {
                     authenticated={currentUser}
                     path="/task/detail/:taskId"
                     component={TaskDetail}
+                    redirectPath="/"
+                />
+                <ProtectedRoute
+                    authenticated={currentUser}
+                    path="/task/new"
+                    component={NewTask}
                     redirectPath="/"
                 />
             </Switch>

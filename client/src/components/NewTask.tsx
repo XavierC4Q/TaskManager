@@ -3,7 +3,7 @@ import {useQuery, useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Input from './Input';
 import {Container, Typography, Button, Theme} from '@material-ui/core';
-import {Formik, Form} from 'formik';
+import {Formik, Form, FormikActions} from 'formik';
 import * as Yup from 'yup';
 import {createStyles, makeStyles} from '@material-ui/styles';
 import {TPriority, IUser, ITask} from '../types/index';
@@ -12,6 +12,7 @@ const validate = Yup.object().shape({
     title: Yup.string().min(6, 'Title is too short').max(100, 'Title is too long').required(),
     description: Yup.string().min(10, 'Description is too short').max(300, 'Description is too long').required(),
     priority: Yup.mixed<TPriority>().oneOf(['HIGH', 'MEDIUM', 'LOW']),
+    assignedTo: Yup.number().positive('Invalid user').required('You must assign a user')
 });
 
 interface IAllUsersData {
@@ -31,8 +32,9 @@ interface ICreateTaskData {
     newTask: Pick<ITask, 'id' | 'title'> | null;
 }
 
-interface ICreateTaskVars extends Pick<ITask, 'title' | 'description' | 'priority'> {
+interface ICreateTaskVars extends Pick<ITask, 'title' | 'description'> {
     assignedTo: number;
+    priority: string | TPriority;
 }
 
 const CREATE_TASK = gql`
@@ -50,7 +52,6 @@ const CREATE_TASK = gql`
 `;
 
 interface IInitialValues extends Omit<Yup.InferType<typeof validate>, 'priority'> {
-    assignedTo: number | null;
     priority: string | TPriority;
 }
 
@@ -58,12 +59,13 @@ const INITIAL_VALUES: IInitialValues = {
     title: '',
     description: '',
     priority: '',
-    assignedTo: null,
+    assignedTo: 0,
 };
 
 const NewTask: React.FC = () => {
     const {data, loading: usersLoading, error: usersError} = useQuery<IAllUsersData>(ALL_USERS);
     const [createTask, {error: taskError}] = useMutation<ICreateTaskData, ICreateTaskVars>(CREATE_TASK);
+    const [success, setSuccess] = React.useState<null | string>(null);
 
     const classes = useNewTaskStyles();
 
@@ -77,14 +79,30 @@ const NewTask: React.FC = () => {
                     initialValues={{...INITIAL_VALUES}}
                     validationSchema={validate}
                     enableReinitialize
-                    onSubmit={() => {}}
+                    onSubmit={async ({title, description, priority, assignedTo}, actions: FormikActions<IInitialValues>) => {
+                        try {
+                            const {data} = await createTask({variables: {
+                                title,
+                                description,
+                                priority,
+                                assignedTo
+                            }});
+
+                            if (data && data.newTask) {
+                                setSuccess(`Successfully created ${data.newTask.title}`);
+                                actions.resetForm();
+                            }
+                        } catch (err) {
+                            console.log('Whoops', err.message);
+                        }
+                    }}
                     render={({values, errors: formErrors}) => (
                         <Form className={classes.form}>
                             <Input label="Enter Task Title" value={values.title} id="title" />
                             <Input label="Enter Task Description" value={values.description} id="description" />
-                            <Input label="Task Priority" value={values.priority} id="priority" />
+                            <Input label="Task Priority" value={values.priority} id="priority" choices={["HIGH", "MEDIUM", "LOW"] as TPriority[]}/>
                             <div>
-                                <Button>Submit</Button>
+                                <Button type="submit" color="inherit">Submit</Button>
                             </div>
                         </Form>
                     )}

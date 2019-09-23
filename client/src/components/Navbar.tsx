@@ -12,7 +12,6 @@ const useNavbarStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             height: 64,
-            background: '#21acd6'
         },
         navItem: {
             flexGrow: 1,
@@ -49,7 +48,7 @@ const Navbar = () => {
                     Profile
                 </Typography>
             </Link>
-            <Link to="/user/tasks" color="inherit" component={RouterLink}>
+            <Link to="/task/new" color="inherit" component={RouterLink}>
                 <Typography variant="h6" className={classes.navItem}>
                     New Task
                 </Typography>
