@@ -17,6 +17,6 @@ export const useFormStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-        },
+        }
     }),
 );

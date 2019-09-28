@@ -10,10 +10,10 @@ import Navbar from './components/Navbar';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#bd304e'
+            main: '#2979ff'
         },
         secondary: {
-            main: '#39323A'
+            main: '#ff1744'
         }
     },
     spacing: 8,

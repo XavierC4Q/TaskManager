@@ -10,6 +10,7 @@ import {useFormStyles} from '../styles/formStyles';
 import {IUser} from '../types/index';
 import {RouteComponentProps} from 'react-router-dom';
 import {useMutation} from '@apollo/react-hooks';
+import {Paper, Typography} from '@material-ui/core';
 
 const validate = Yup.object().shape({
     username: Yup.string().required('Username is required'),
@@ -76,18 +77,21 @@ const Login: React.FC<IOwnProps> = ({history}) => {
                         }
                     }}
                     render={({values: vals, errors: fieldErrors, error}) => (
-                        <Form className={classes.form} autoComplete="off">
-                            <Input id="username" label="Enter Username" value={vals.username} />
+                        <Paper>
+                            <Typography variant="h4" display="block" align="justify" style={{margin: '8px'}}>Welcome Back!</Typography>
+                            <Form className={classes.form} autoComplete="off">
+                                <Input id="username" label="Enter Username" value={vals.username} />
 
-                            <Input id="password" label="Enter Password" value={vals.password} />
+                                <Input id="password" label="Enter Password" value={vals.password} />
 
-                            {error && <Box component="div">{error}</Box>}
-                            <Box component="div">
-                                <Button type="submit" color="primary">
-                                    Submit
-                                </Button>
-                            </Box>
-                        </Form>
+                                {error && <Box component="div">{error}</Box>}
+                                <Box component="div">
+                                    <Button type="submit" color="primary">
+                                        Submit
+                                    </Button>
+                                </Box>
+                            </Form>
+                        </Paper>
                     )}
                 />
             </Container>

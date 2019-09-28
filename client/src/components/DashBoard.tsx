@@ -35,41 +35,45 @@ const useDashBoardStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
-            justifyContent: 'space-between',
             '& a': {
-                width: '49%'
-            }
+                width: '30%',
+                margin: theme.spacing(1.5),
+            },
         },
         card: {
             marginTop: theme.spacing(1.5),
             marginBottom: theme.spacing(1.5),
             width: '100%',
-            height: 210,
+            height: 180,
             '& span.MuiCardHeader-title': {
                 textAlign: 'center',
             },
+            '& div.MuiCardHeader-root': {
+                background: theme.palette.primary.main,
+                color: '#FFFFFF'
+            },
             '& span.MuiCardHeader-subheader': {
                 float: 'right',
-            },
+            }
         },
         cardContent: {
             display: 'flex',
             flexDirection: 'row-reverse',
             height: 'auto',
+            textAlign: 'center',
             '& div.card-item': {
                 height: '100%',
-                width: '50%',
-                '& svg': {
-                    margin: 'auto',
-                    height: '3.75em',
-                    width: '50%',
-                },
-            },
-            '& div.complete-status': {
-                display: 'flex',
-                alignContent: 'center',
+                width: '100%',
             },
         },
+        completeStatus: {
+            display: 'flex',
+            justifyContent: 'center',
+            '& svg': {
+                alignSelf: 'center',
+                marginLeft: theme.spacing(1)
+            }
+        }
     }),
 );
 
@@ -87,18 +91,18 @@ const DashBoard = () => {
                     <Link key={i} to={`/task/detail/${t.id}`} component={RouterLink}>
                         <Card className={classes.card}>
                             <CardHeader title={t.title} />
-
                             <CardContent>
                                 <section className={classes.cardContent}>
                                     <div className="card-item">
                                         <Typography variant="subtitle1">
                                             Assigned to: {t.assignedTo.username}
                                         </Typography>
-                                        <Typography variant="body1">{t.description}</Typography>
-                                        {moment(t.createdOn, 'YYYYMMDD').fromNow()}
-                                    </div>
-                                    <div className="card-item complete-status">
-                                        {t.completed ? <CheckCircle color="primary" /> : <Cancel color="error" />}
+                                        <Typography variant="subtitle1" className={classes.completeStatus}>
+                                            Completed: {t.completed ? <CheckCircle color="primary"/> : <Cancel color="secondary"/>}
+                                        </Typography>
+                                        <Typography variant="subtitle2">
+                                            Created: {moment(t.createdOn, 'YYYYMMDD').fromNow()}
+                                        </Typography>
                                     </div>
                                 </section>
                             </CardContent>
@@ -114,16 +118,16 @@ const DashBoard = () => {
                     <Link key={i} to={`/task/detail/${t.id}`} component={RouterLink}>
                         <Card className={classes.card}>
                             <CardHeader title={t.title} />
-
                             <CardContent>
                                 <section className={classes.cardContent}>
                                     <div className="card-item">
                                         <Typography variant="subtitle1">Created by: {t.createdBy.username}</Typography>
-                                        <Typography variant="body1">{t.description}</Typography>
-                                        {moment(t.createdOn, 'YYYYMMDD').fromNow()}
-                                    </div>
-                                    <div className="card-item complete-status">
-                                        {t.completed ? <CheckCircle color="primary" /> : <Cancel color="error" />}
+                                        <Typography variant="subtitle1" className={classes.completeStatus}>
+                                            Completed: {t.completed ? <CheckCircle color="primary"/> : <Cancel color="secondary"/>}
+                                        </Typography>
+                                        <Typography variant="subtitle2">
+                                            Created: {moment(t.createdOn, 'YYYYMMDD').fromNow()}
+                                        </Typography>
                                     </div>
                                 </section>
                             </CardContent>

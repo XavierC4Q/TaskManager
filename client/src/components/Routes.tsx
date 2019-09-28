@@ -44,7 +44,6 @@ const Home = () => <div>Welcome Home</div>;
 const useMainStyles = makeStyles((theme: Theme) =>
     createStyles({
         routeContainer: {
-            height: 1000,
             overflow: 'scroll',
             position: 'absolute',
             top: theme.spacing(9),

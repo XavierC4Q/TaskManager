@@ -48,21 +48,34 @@ const useTaskDetailStyles = makeStyles((theme: Theme) =>
         paper: {
             width: '100%',
             height: '100%',
-            border: theme.palette.primary.dark
         },
         title: {
             height: '10%',
             textAlign: 'center',
+            background: theme.palette.primary.main,
+            color: '#ffffff'
         },
         content: {
             display: 'flex',
             height: '90%',
+            '& p': {
+                height: 100,
+                fontSize: '16px',
+                lineHeight: '32px',
+                overflow: 'scroll',
+                margin: theme.spacing(1.5)
+
+            },
+            '& h6': {
+                margin: theme.spacing(1.5)
+            }
         },
         taskMeta: {
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
             width: '50%',
+            borderRight: `2px solid ${theme.palette.secondary.main}`,
         },
     }),
 );
@@ -93,7 +106,8 @@ const TaskDetail: React.FC<ITaskDetailProps> = ({history, match: {params}}) => {
                             <Typography variant="body1">{task.description}</Typography>
                             <Typography variant="subtitle1">{`Assigned to ${task.assignedTo.username}`}</Typography>
                             <Typography variant="subtitle2">{`Created by ${task.createdBy.username}`}</Typography>
-                            {moment(task.createdOn, 'YYYYMMDD').fromNow()}
+                            <Typography variant="subtitle2">{moment(task.createdOn, 'YYYYMMDD').fromNow()}</Typography>
+
                         </div>
                     </div>
                 </Paper>
